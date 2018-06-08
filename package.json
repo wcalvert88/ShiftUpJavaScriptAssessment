@@ -1,0 +1,29 @@
+{
+  "name": "shiftupassessment",
+  "version": "1.0.0",
+  "description": "My Shift_Up JavaScript Assessment",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wcalvert88/ShiftUpJavaScriptAssessment.git"
+  },
+  "keywords": [
+    "Shift_Up",
+    "JavaScript",
+    "Assessment",
+    "NodeJS"
+  ],
+  "author": "Wade A. Calvert",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/wcalvert88/ShiftUpJavaScriptAssessment/issues"
+  },
+  "homepage": "https://github.com/wcalvert88/ShiftUpJavaScriptAssessment#readme",
+  "dependencies": {
+    "ejs": "^2.6.1",
+    "express": "^4.16.3"
+  }
+}
