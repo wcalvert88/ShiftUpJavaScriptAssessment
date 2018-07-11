@@ -73,3 +73,11 @@ N/A
 
 
 
+Current plan:
+
+Make a simulator that simulates Shift_Up.  This will work by being able to add new students to a database, simulate payments, and every time they complete a successful week they get learning points.
+
+Possible goals:
+1. 20 learning points the student qualifies for a final exam. If they pass, they get a certificate of completion.
+
+2. Students learn a stack. If they get a full stack correct they can apply for the certification.
