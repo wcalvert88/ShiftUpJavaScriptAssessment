@@ -15,8 +15,9 @@ class Student {
         return this.isStudent;
     }
 
-    set applied() {
+    set applied(isStudent) {
         if ((this.money > 150) && (this.qualify())) {
+            this.isStudent = true;
             return true;
         }
     }
@@ -24,10 +25,11 @@ class Student {
 
 }
 
-module.export.allStudents = function(req,res) {
-    //EVENTUALLY Get all students from database
-    res.send("All Students");
-}
+module.exports = Student;
+// module.export.allStudents = function(req,res) {
+//     //EVENTUALLY Get all students from database
+//     res.send("All Students");
+// }
 
 module.exports.addStudent = function(req, res) {
     res.send("New Student");
@@ -35,4 +37,8 @@ module.exports.addStudent = function(req, res) {
 
 module.exports.graduate = function(req,res) {
     res.send("Graduated");
+}
+
+module.exports.find = function(req,res) {
+    res.send("Find Student");
 }
