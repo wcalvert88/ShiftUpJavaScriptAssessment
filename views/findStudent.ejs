@@ -2,6 +2,35 @@
 
 <h1><%= title %></h1>
 
+<div class="findStudentTable">
+    <h4>All Current Students</h4>
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Age</th>
+                <th>Ability</th>
+                <th>Money</th>
+                <th>Current Student</th>
+                <th>Graduate</th>
+                <th>Train</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% for(var i = 0; i < results.length; i++) { %>
+                <tr>
+                    <td><%= results[i].name %></td>
+                    <td><%= results[i].age %></td>
+                    <td><%= results[i].ability %></td>
+                    <td>$<%= results[i].money %>.99</td>
 
+                    <td><%= results[i].isStudent ? 'Yes' : 'No' %></td>
+                    <td><%= results[i].graduate ? 'Yes' : 'No' %></td>
+                    <td><a class="btn btn-info" href='/study/<%= (results[i].name).split(" ").join("-") %>'>Train Student</a></td>
+                </tr>
+            <% }%>
+        </tbody>
+    </table>
+</div>
 <%- include('../views/footers/nonHomepageFooter.ejs') -%>
 <%- include('../views/footers/footer.ejs') -%>

@@ -1,9 +1,9 @@
 const express = require('express');
 const app= express();
-// const mysql = require('mysql');
 const path = require('path');
 const bodyParser = require('body-parser');
 const index = require('./routes/index.js');
+
 // Choose port to use
 var port = process.env.PORT || 3000;
 

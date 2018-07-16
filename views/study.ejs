@@ -1,0 +1,26 @@
+<%- include('../views/headers/header.ejs') -%>
+
+<h1><%= title %></h1>
+
+<table class="table table-bordered table-hover">
+<thead>
+    <tr>
+        <th>Name</th>
+        <th>Age</th>
+        <th>Ability</th>
+        <th>Money</th>
+        <th>Train</th>
+    </tr>
+</thead>
+<tbody>
+    <% for(var i = 0; i < results.length; i++) { %>
+        <tr>
+            <td><%= results[i].name %></td>
+            <td><%= results[i].age %></td>
+            <td><%= results[i].ability %></td>
+            <td>$<%= results[i].money %>.99</td>
+            <td><a id="train" class="btn btn-info" href=''>Train <%= results[i].name %></a></td>
+        </tr>
+    <% }%>
+</tbody>
+</table>
