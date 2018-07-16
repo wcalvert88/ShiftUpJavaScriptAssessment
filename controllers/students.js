@@ -22,7 +22,7 @@ class Student {
             Db.createTable();
         }
         console.log("Anything happening");
-        var sql = mysql.format("INSERT INTO shiftup (name, age, ability, money, isStudent, graduate) VALUES (?, ?, ?, ?, ?, ?);",[this.name, this.age, this.ability, this.money, this.isStudent, this.graduate]);
+        var sql = mysql.format("INSERT INTO shiftup (name, age, ability, money, isStudent, graduate) VALUES (?, ?, ?, ?, ?, ?);",[mysql.escape(this.name), mysql.escape(this.age), mysql.escape(this.ability), mysql.escape(this.money), mysql.escape(this.isStudent), mysql.escape(this.graduate)]);
         // connection.connect();
         connection.query(sql, function(err, result) {
             if (err) throw err;
@@ -38,6 +38,14 @@ class Student {
         });
         connection.end();
     };
+
+    static updateStudents(train, name) {
+        var sql = mysql.format("UPDATE shiftup SET ability = ability + ? WHERE name = ?;"[train, name]);
+        connection.query(sql, function(err, result) {
+            if (err) throw err;
+            console.log(this.name + " updated");
+        });
+    }
 
     get qualify() {
         return this.ability >= 20 ? true : false;

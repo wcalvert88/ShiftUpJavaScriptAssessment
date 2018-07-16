@@ -19,8 +19,10 @@
             <td><%= results[i].age %></td>
             <td><%= results[i].ability %></td>
             <td>$<%= results[i].money %>.99</td>
-            <td><a id="train" class="btn btn-info" href=''>Train <%= results[i].name %></a></td>
+            <td><input id="train" class="btn btn-info" href='' type="submit" value='Train <%= results[i].name %>'>Train <%= results[i].name %></input></td>
         </tr>
     <% }%>
+
+    <div id="training-result"></div>
 </tbody>
 </table>
