@@ -74,9 +74,12 @@ $(document).ready(function() {
         } else {
             finalScore = training * multiplyer;
         }
+
         $.ajax({
             type="PATCH",
-            data={}
+            success: function() {
+                Student.updateStudents(finalScore, name)
+            }
         })
     });
 });
