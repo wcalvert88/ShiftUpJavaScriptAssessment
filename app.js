@@ -3,6 +3,7 @@ const app= express();
 const path = require('path');
 const bodyParser = require('body-parser');
 const index = require('./routes/index.js');
+const db = require('./controllers/db');
 
 // Choose port to use
 var port = process.env.PORT || 3000;
@@ -26,6 +27,7 @@ app.use(express.static(path.join(__dirname, '/public/')));
 // Connect all our routes to our application
 // '/' is the root route for the 'index' router to use so can affect the whole app
 app.use('/', index);
+// app.use('/study', db);
 
 // Listen for connections on the port
 app.listen(port)

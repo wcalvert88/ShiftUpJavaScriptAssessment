@@ -1,7 +1,7 @@
 const mysql = require('mysql');
 
 class Db {
-    constructor (connection, results) { 
+    constructor () { 
         this.connection = mysql.createConnection({
             host: "localhost",
             port: "3306",
@@ -9,7 +9,6 @@ class Db {
             password: "root",
             database: "shiftup"
         });
-        this.results = 0;
     };
 
     testConnection() {
@@ -41,26 +40,26 @@ class Db {
         });
     };
 
-    findStudents() {
-        let sql = "SELECT * FROM shiftup;";
-        this.results = this.connection.query(sql, function(err, results) {
-            if (err) {
-                return err;
-            }
-            return results;
-        });
-        console.log(this.results);
-        return this.results;
+    findStudents(cb) {
+        let sql = "SELECT * FROM shiftup WHERE isStudent = 1;";
+        this.connection.query(sql, cb);
     };
+
+    findStudent(name, cb) {
+        name = this.cleanString(name);
+        console.log("findStudent name " + name);
+        let sql = mysql.format("SELECT * FROM shiftup WHERE name = ? LIMIT 1;",[name]);
+        this.connection.query(sql, cb);
+    }
+
+    findGraduates(cb) {
+        let sql = "SELECT * FROM shiftup WHERE graduate = 1;";
+        this.connection.query(sql, cb);
+    }
+
+    cleanString(badData) {
+        return mysql.escape((badData).split("-").join(" ")).slice(1,-1);
+    }
 }
-// connection.connect();
 
-// connection.query('SELECT 1 + 1 AS solution', function (error, results, fields) {
-//     if (error) throw error;
-//     console.log('The solution is: ', results[0].solution);
-//   }
-// );
-
-// connection.end();
-
-module.exports = Db;
+module.exports = new Db();

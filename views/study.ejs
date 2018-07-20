@@ -1,4 +1,4 @@
-<%- include('../views/headers/header.ejs') -%>
+<%- include('../views/headers/header.ejs') %>
 
 <h1><%= title %></h1>
 
@@ -19,10 +19,14 @@
             <td><%= results[i].age %></td>
             <td><%= results[i].ability %></td>
             <td>$<%= results[i].money %>.99</td>
-            <td><input id="train" class="btn btn-info" href='' type="submit" value='Train <%= results[i].name %>'>Train <%= results[i].name %></input></td>
+            <td><form action="" method="put" id="trainStudentForm" name="form2"><button id="train" class="btn btn-info" type="submit" value='Train <%= results[i].name %>'>Train <%= results[i].name %></button></form></td>
         </tr>
     <% }%>
 
-    <div id="training-result"></div>
+
 </tbody>
 </table>
+<div id="training-result"><%= trainingResult %></div>
+<div id="testAjax"></div>
+<%- include('../views/footers/nonHomepageFooter.ejs') -%>
+<%- include('../views/footers/footer.ejs') -%>
