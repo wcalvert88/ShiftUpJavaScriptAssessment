@@ -9,7 +9,7 @@ class Student {
         this.ability = ability;
         this.money = money;
         this.isStudent = this.applied(this.money);
-        this.graduate = this.graduate(this.ability);
+        this.graduate = Student.applyGraduate(this.ability);
         this.results = "";
     };
 
@@ -22,8 +22,11 @@ class Student {
             console.log("Creating Table"); 
             Db.createTable();
         }
-        console.log("Anything happening");
-        var sql = mysql.format("INSERT INTO shiftup (name, age, ability, money, isStudent, graduate) VALUES (?, ?, ?, ?, ?, ?);",[mysql.escape(this.name), mysql.escape(this.age), mysql.escape(this.ability), mysql.escape(this.money), mysql.escape(this.isStudent), mysql.escape(this.graduate)]);
+        this.name = (this.name.split("-")).join(" ");
+        this.name = mysql.escape(this.name);
+        this.name = this.name.slice(1, -1);
+        console.log("student stats", this.name, this.age, this.ability, this.money, this.isStudent, this.graduate);
+        var sql = mysql.format("INSERT INTO shiftup (name, age, ability, money, isStudent, graduate) VALUES (?, ?, ?, ?, ?, ?);",[this.name, this.age, this.ability, this.money,this.isStudent, this.graduate]);
         connection.query(sql, function(err, result) {
             if (err) throw err;
             console.log(this.name + " added to the database");
@@ -32,13 +35,12 @@ class Student {
 
     static getStudents() {
         var sql = ("SELECT * FROM shiftup WHERE isStudent = 1;");
-        var results = connection.query(sql, function(err, result) {
+        connection.query(sql, function(err, result) {
             if (err) throw err;
             console.log("Here are all the students");
             // console.log(result);
             Student.results = result;
         });
-        return this.results;
     };
 
     static updateTraining(train, name) {
@@ -141,8 +143,7 @@ class Student {
     }
 
     return [finalScore, trainingMessage];
-
-    }
+    };
 
     static checkAbility(name) {
         Db.findStudent(name, (err, results) => {
@@ -150,6 +151,22 @@ class Student {
             console.log("results " + results);
             console.log("results[name] " + results[0].name);
             Student.updateGraduate(results[0].name);
+        });
+    };
+
+    static work(name) {
+        console.log("working man running");
+        Db.findStudent(name, (err, results) => {
+            if (err) throw err;
+            Student.updateMoney(results[0].name);
+        })
+    };
+
+    static updateMoney(name) {
+        let sql = mysql.format("UPDATE shiftup SET money = money + 150 WHERE name = ?;",[name]);
+        connection.query(sql, function(err, result) {
+            if (err) throw err;
+            console.log(this.name + " made $150");
         });
     }
 }

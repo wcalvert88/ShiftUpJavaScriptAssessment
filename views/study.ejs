@@ -10,16 +10,19 @@
         <th>Ability</th>
         <th>Money</th>
         <th>Train</th>
+        <th>Work</th>
     </tr>
 </thead>
 <tbody>
     <% for(var i = 0; i < results.length; i++) { %>
         <tr>
-            <td><%= results[i].name %></td>
-            <td><%= results[i].age %></td>
-            <td><%= results[i].ability %></td>
-            <td>$<%= results[i].money %>.99</td>
-            <td><form action="" method="put" id="trainStudentForm" name="form2"><button id="train" class="btn btn-info" type="submit" value='Train <%= results[i].name %>'>Train <%= results[i].name %></button></form></td>
+            <td id="tName"><%= results[i].name %></td>
+            <td id="tAge"><%= results[i].age %></td>
+            <td id="tAbility"><%= results[i].ability %></td>
+            <td id="tMoney">$<%= results[i].money %></td>
+            <td><form action="" method="post" id="trainStudentForm" name="form2"><button id="train" class="btn btn-info" type="submit" value='Train <%= results[i].name %>'>Train <%= results[i].name %></button></form></td>
+            <td><form action="" method="post" id="moneyStudentForm" name="form3"><button id="money" class="btn btn-info" type="submit" value="Work for money">Work for money</button>
+            </td>
         </tr>
     <% }%>
 
