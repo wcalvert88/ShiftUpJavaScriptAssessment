@@ -1,4 +1,3 @@
-// import { Student } from "../../controllers/students";
 $(document).ready(function() {
     console.log("jQuery Works");
 
@@ -31,13 +30,19 @@ $(document).ready(function() {
     //     document.getElementById('testAjax').innerHTML = "TrainStudentForm clicked";
     //     $.ajax({
     //         type:"POST",
-    //         // url: "../../routes/index.js",
-    //         data: {hi: "hello"},
-    //         // url: "../../controllers/db.js",
     //         error: console.log("Is the ajax doing anything"),
-    //         success: function() {
+    //         success: function(data) {
     //             console.log("this worked");
     //             document.getElementById('training-result').innerHTML = "Training Clicked" ;
+    //             if (data.classCountdown <= 0) {
+    //                 if (data.money < 150 ) {
+    //                     document.getElementById(train).disabled = true;
+    //                 } else {
+    //                     document.getElementById(train).disabled = false;
+    //                 }
+    //             } else {
+    //                 document.getElementById(train).disabled = false;
+    //             }
     //         }
     //     });
     // });
@@ -64,13 +69,22 @@ $(document).ready(function() {
                 data = data.split("]");
                 data = data.join("");
                 data = JSON.parse(data);
+                data.money = data.money + 150;
+                console.log("data.money", data.money);
                 console.log("ajax data" + data);
                 console.log("data.name", data.name);
+                if (data.money >= 150 && data.classCountdown == 0) {
+                    data.money -= 150;
+                    data.classCountdown = 10;
+                }
                 document.getElementById("tName").innerHTML = data.name;
                 document.getElementById("tAge").innerHTML = data.age;
                 document.getElementById("tAbility").innerHTML = data.ability;
-                document.getElementById("tMoney").innerHTML = "$" +data.money;
+                document.getElementById("tMoney").innerHTML = "$" + data.money;
+                document.getElementById("tCountdown").innerHTML = data.classCountdown;
                 document.getElementById('training-result').innerHTML = "Made $150 through a quick shift at work";
+                
+                document.getElementById("train").disabled = false;
             }
         });
     });

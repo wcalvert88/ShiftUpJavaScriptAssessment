@@ -31,6 +31,7 @@ router.get('/student/graduate', function(req,res) {
 
     Db.findGraduates((err, results) => {
         if (err) throw err;
+        console.log("graduate results", results);
         res.render('graduate', {titlePage: "Graduated Students", title:"View All Graduates", results: results});
     })
 });
@@ -55,9 +56,15 @@ router.route('/study/:name')
         let finalScore = Students.train();
         console.log("FinalScore" + finalScore);
         Students.updateTraining(finalScore[0], name);
-        if (Students.checkAbility(name)) {
-            res.render('graduated', {titlePage: name + " Has Graduated!", title: name + " Has Graduated! Congratulations!", results: results})
-        };
+        Students.checkAbilities(name, (err, results) => {
+            if (err) throw err;
+            console.log("results ability", results[0].ability);
+            if (results[0].ability >= 100) {
+                Students.updateGraduate(name);
+                res.render('graduated', {titlePage: name + " Has Graduated!", title: name + " Has Graduated! Congratulations!", results: results});
+            }
+        })
+        
         Db.findStudent(name, (err, results) => {
             if (err) throw err;
             res.render('study', {titlePage: name + "'s Training", title: name + "'s Training", results: results, trainingResult: finalScore[1]});

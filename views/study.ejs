@@ -9,18 +9,31 @@
         <th>Age</th>
         <th>Ability</th>
         <th>Money</th>
+        <th>Classes Left Until Refresh</th>
         <th>Train</th>
         <th>Work</th>
     </tr>
 </thead>
 <tbody>
     <% for(var i = 0; i < results.length; i++) { %>
+    <% var money = results[i].money; %>
         <tr>
             <td id="tName"><%= results[i].name %></td>
             <td id="tAge"><%= results[i].age %></td>
             <td id="tAbility"><%= results[i].ability %></td>
             <td id="tMoney">$<%= results[i].money %></td>
-            <td><form action="" method="post" id="trainStudentForm" name="form2"><button id="train" class="btn btn-info" type="submit" value='Train <%= results[i].name %>'>Train <%= results[i].name %></button></form></td>
+            <td id="tCountdown"><%= results[i].classCountdown %></td>
+            <td><form action="" method="post" id="trainStudentForm" name="form2">
+            <% if (results[i].classCountdown <= 0) { %>
+                <% if (results[i].money < 150) { %> 
+                    <button id="train" class="btn btn-info" type="submit" value='Train <%= results[i].name %>' disabled>Train <%= results[i].name %></button>
+                <% } else { %>
+                    <button id="train" class="btn btn-info" type="submit" value='Train <%= results[i].name %>'>Train <%= results[i].name %></button>
+            <% }} else { %>
+                <button id="train" class="btn btn-info" type="submit" value='Train <%= results[i].name %>'>Train <%= results[i].name %></button>
+            <% } %>
+            </form></td>
+
             <td><form action="" method="post" id="moneyStudentForm" name="form3"><button id="money" class="btn btn-info" type="submit" value="Work for money">Work for money</button>
             </td>
         </tr>
@@ -29,7 +42,13 @@
 
 </tbody>
 </table>
-<div id="training-result"><%= trainingResult %></div>
+<% if (results[0].classCountdown <= 0) { %>
+    <% if (money < 150) { %> <div id="training-result">Need to work to make more money</div>
+    <% } else { %>
+    <div id="training-result"><%= trainingResult %></div>
+<% }} else { %>
+    <div id="training-result"><%= trainingResult %></div>
+<% } %>
 <div id="testAjax"></div>
 <%- include('../views/footers/nonHomepageFooter.ejs') -%>
 <%- include('../views/footers/footer.ejs') -%>
