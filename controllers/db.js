@@ -1,6 +1,9 @@
+// This imports the mysql module for NodeJS
 const mysql = require('mysql');
 
+// This is the database class that sets up the connection to the database I know it's safer to use a config file for the password but since this is only used for an assessment and it's all defaults just figured I'd make it easy on the coaches.
 class Db {
+	// This automatically creates the connection as soon as the database object is created.
     constructor () { 
         this.connection = mysql.createConnection({
             host: "localhost",
@@ -11,17 +14,15 @@ class Db {
         });
     };
 
-    testConnection() {
+	// This is just to test the connection and to see if the database exists.
+    testConnection(cb) {
         console.log("Testing");
         this.connection.connect();
         let sql = "SELECT 1 FROM shiftup LIMIT 1";
-        this.connection.query(sql, function(err, result) {
-            if (err) return false;
-            console.log("Test worked" + result);
-            return true;
-        })
+        this.connection.query(sql, cb);
     };
 
+	// This method is to create the table and should only be run if the database does not exist.
     createTable() {
         // this.connection.connect();
         let sql = "CREATE TABLE shiftup ( ";
@@ -40,8 +41,10 @@ class Db {
         });
     };
 
+	// This method searches for all students that have not graduated and has a built-in callback function that will return the data to whatever calls this function.
     findStudents(cb) {
-        let sql = "SELECT * FROM shiftup WHERE isStudent = 1;";
+        // If graduate = 0 they have to be a student, and if they aren't a student either they are really messed up and should join.
+        let sql = "SELECT * FROM shiftup WHERE graduate = 0;";
         this.connection.query(sql, cb);
     };
 
@@ -52,14 +55,17 @@ class Db {
         this.connection.query(sql, cb);
     }
 
+	//  This method searches for all graduates and returns the data back to whatever called this method.
     findGraduates(cb) {
         let sql = "SELECT * FROM shiftup WHERE graduate = 1;";
         this.connection.query(sql, cb);
     }
 
+	// This method cleans the string automatically to prevent SQL injection and so I didn't have to type these functions manually several times.
     cleanString(badData) {
         return mysql.escape((badData).split("-").join(" ")).slice(1,-1);
     }
 }
 
+// This exports a new Db object so I will not need to create one on importing because you really only want 1 database connection.
 module.exports = new Db();
