@@ -2,7 +2,7 @@ const express = require('express');
 const app= express();
 const path = require('path');
 const bodyParser = require('body-parser');
-const index = require('./routes/index.js');
+const index = require('./routes/router.js');
 const db = require('./controllers/db');
 
 // Choose port to use

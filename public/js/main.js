@@ -28,52 +28,6 @@ $(document).ready(function() {
         })
     });
 
-
-    // $("#trainStudentForm").submit(function (e) {
-    //     e.preventDefault();
-    //     console.log("training clicked");
-
-    //     let link = window.location.href.split("/");
-    //     let name = link[link.length - 1];
-    //     console.log(name);
-    //     let url = "/api/training/" + name;
-    //     $.ajax({
-    //         type: "POST",
-    //         url: url,
-    //         datatype: "application/json",
-    //         success: function(data) {
-    //             console.log("training works");
-    //             console.log("data ", data);
-    //             data = data.split("&#34;");
-    //             data = data.join("\"");
-    //             data = data.split("[");
-    //             data = data.join("");
-    //             data = data.split("]");
-    //             data = data.join("");
-    //             data = JSON.parse(data);
-
-    //             // if (data.money >= 150 && data.classCountdown <= 0) {
-    //             //     data.money -= 150;
-    //             //     data.classCountdown = 10;
-    //             // }
-    //             // if (data.classCountdown > 1) {
-    //             //     data.classCountdown -= 1;
-    //             // } else if (data.classCountdown < 1 && data.money > 150) {
-    //             //     data.classCountdown = 10;
-    //             // }
-    //             if (data.money < 150 && data.classCountdown <= 0) {
-    //                 document.getElementById("train").disabled = true;
-    //             }
-
-    //             document.getElementById("tName").innerHTML = data.name;
-    //             document.getElementById("tAge").innerHTML = data.age;
-    //             document.getElementById("tAbility").innerHTML = data.ability;
-    //             document.getElementById("tMoney").innerHTML = "$" + data.money;
-    //             document.getElementById("tCountdown").innerHTML = data.classCountdown;
-    //         }
-    //     })
-    // })
-
 	// This handles the button with id moneyStudentForm.
     $("#moneyStudentForm").submit(function (e) {
         e.preventDefault();

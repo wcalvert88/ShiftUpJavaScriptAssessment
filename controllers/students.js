@@ -29,20 +29,20 @@ class Student {
         // This checks to make sure the shiftup table has already been created.  If there is an err it assumes there is no table created so it will try and create one.  If create table runs into an error then it will error out.  With testConnection it either means there is no table shiftup or there the server isn't turned on.
         Db.testConnection((err, result) => {
             if (err) throw Db.createTable();
-
-            // The name format is sent to this method like this: Wade-Calvert
-            this.name = (this.name.split("-")).join(" ");
-            // Escape the string to help prevent SQL injection
-            this.name = mysql.escape(this.name);
-            // Escaping the string makes this.name like this: 'Wade Calvert' so this removes the single-quotes.
-            this.name = this.name.slice(1, -1);
-            console.log("student stats", this.name, this.age, this.ability, this.money, this.isStudent, this.graduate);
+        });
         
-            var sql = mysql.format("INSERT INTO shiftup (name, age, ability, money, isStudent, graduate, classCountdown) VALUES (?, ?, ?, ?, ?, ?, ?);",[this.name, this.age, this.ability, this.money,this.isStudent, this.graduate, this.classCountdown]);
-            connection.query(sql, function(err, result) {
-                if (err) throw err;
-                console.log(this.name + " added to the database");
-            });
+        // The name format is sent to this method like this: Wade-Calvert
+        this.name = (this.name.split("-")).join(" ");
+        // Escape the string to help prevent SQL injection
+        this.name = mysql.escape(this.name);
+        // Escaping the string makes this.name like this: 'Wade Calvert' so this removes the single-quotes.
+        this.name = this.name.slice(1, -1);
+        console.log("student stats", this.name, this.age, this.ability, this.money, this.isStudent, this.graduate);
+    
+        var sql = mysql.format("INSERT INTO shiftup (name, age, ability, money, isStudent, graduate, classCountdown) VALUES (?, ?, ?, ?, ?, ?, ?);",[this.name, this.age, this.ability, this.money,this.isStudent, this.graduate, this.classCountdown]);
+        connection.query(sql, function(err, result) {
+            if (err) throw err;
+            console.log(this.name + " added to the database");
         });
     }
 
