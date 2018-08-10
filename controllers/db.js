@@ -6,10 +6,10 @@ class Db {
 	// This automatically creates the connection as soon as the database object is created.
     constructor () { 
         this.connection = mysql.createConnection({
-        host: 'a5s42n4idx9husyc.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
-        user: 'nug9fqd98rcwmlr2',
-        password: 'k6tdcf6wj2ohsu8q',
-        database: 'nhnj5kh1d2wkipch'
+        host: process.env.host,
+        user: process.env.user,
+        password: process.env.password,
+        database: process.env.password
         });
     };
 
