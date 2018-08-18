@@ -51,6 +51,8 @@ class Student {
         name = Db.cleanString(name);
         let sql = mysql.format("UPDATE shiftup SET ability = ability + ? WHERE name = ?;",[train, name]);
 
+        // Function used as parameter just put it in a variable "name" to use in more places.
+        
         Student.charge(name);
         console.log("updateStudents sql " + sql);
         connection.query(sql, function(err, result) {

@@ -15,6 +15,9 @@ $(document).ready(function() {
         // This POST's the data to the api/addStudent page
         let url = "/api/addStudent/" + name;
         $.ajax({
+
+            // HTTP AJAX method POST used
+            
             type: "POST",
             url: url,
             data: { name: name, age: asf[1].value, ability: asf[2].value, money: asf[3].value 
@@ -39,6 +42,9 @@ $(document).ready(function() {
         console.log(name);
         let url = "/api/money/" + name;
         $.ajax({
+
+            // HTTP AJAX method PUT used
+
             type: "PUT",
             url: url,
             datatype: "application/json",
@@ -76,3 +82,6 @@ $(document).ready(function() {
         });
     });
 });
+
+
+// I do have another project which uses delete if you would like me to send you that one too let me know, email: wcalvert88@gmail.com phone: 734-497-3977

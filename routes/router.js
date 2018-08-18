@@ -4,6 +4,9 @@ const Students = require('../controllers/students.js');
 const Db = require('../controllers/db');
 
 // This sets the route for the home page as a GET request no other HTTP methods should be run on this page.
+
+// This page has functions used as parameters all throughout
+
 router.get('/', function(req, res) {
     res.render('index', {titlePage: "Shift_Up Simulator", title: "Welcome to Shift_Up the Simulator"});
 });
@@ -16,6 +19,9 @@ router.route('/student/add')
         })
     // This sets the POST method for the student/add page.  It creates a new student so that the default properties are added to the object and adds it to the data base based on the inputs from the form.
     .post(function(req, res) {
+
+        // Creating an object
+
         student = new Students(req.body.sname, req.body.sAge, req.body.cAbility, req.body.cMoney);
         student.addStudent();
         res.render('addStudent', {titlePage: "Added Student", title: "Added Student " + req.body.sname });
@@ -48,7 +54,11 @@ router.route('/study/:name')
         name = Db.cleanString(req.params.name);
         console.log("Study/:name:" + name);
         Students.updateGraduate(name);
-	    // This calls the Db.findStudent(name, cb) which just grabs a students info from the database and returns it here for checking which page should be rendered.
+        // This calls the Db.findStudent(name, cb) which just grabs a students info from the database and returns it here for checking which page should be rendered.
+        
+        // This uses a self-invoking callback function to return the results from Db.findStudent to this file. Asynchronicity
+
+
         Db.findStudent(req.params.name, (err, results) => {
             if(err) throw err;
 	        // If the students ability is greater than 100 than display a page saying they have already graduated. If not then it will show the students training page. 
@@ -90,6 +100,9 @@ router.route('/study/:name')
         let name = Db.cleanString(req.params.name);
         Students.work(name);
         // This renders the study page with more money :)
+
+        // This uses a self-invoking callback function to return the results from Db.findStudent to this file. Asynchronicity
+
         Db.findStudent(name, (err, results) => {
             if (err) throw err;
             res.render('study', {titlePage: name + "'s Training", title: name + "'s Training", results: results, trainingResult: "Gained $150 from working a few hours"})
@@ -161,6 +174,9 @@ router.route('/api/training/:name')
         Students.updateTraining(finalScore[0], name);
         Students.updateGraduate(name);
         // This is the logic that checks to see if the new ability qualifies the student for graduation or not this renders the congratulations page if the student has graduated.
+
+        // This uses a self-invoking callback function to return the results from Db.findStudent to this file. Asynchronicity
+
         Db.findStudent(name, (err, results) => {
             if (err) throw err;
             console.log("Api results ability", results[0].ability);
@@ -174,7 +190,9 @@ router.route('/api/training/:name')
         name = Db.cleanString(req.params.name);
         console.log("Study/:name:" + name);
 
-	    // This calls the Db.findStudent(name, cb) which just grabs a students info from the database and returns it here for checking which page should be rendered.
+        // This calls the Db.findStudent(name, cb) which just grabs a students info from the database and returns it here for checking which page should be rendered.
+        
+        // This uses a self-invoking callback function to return the results from Db.findStudent to this file. Asynchronicity
         Db.findStudent(req.params.name, (err, results) => {
             if(err) throw err;
             results = JSON.stringify(results);
